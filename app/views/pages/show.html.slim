@@ -1,0 +1,8 @@
+h2
+ = @page.title
+p
+ = @page.body
+
+ =link_to 'Add nested page', new_nested_page_path(parent_id: @page.id)
+
+= link_to 'All pages', pages_path

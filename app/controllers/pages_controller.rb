@@ -30,6 +30,7 @@ class PagesController < ApplicationController
   def update
     if @page.update(page_params)
       redirect_to page_path(@page)
+      update_descendants_slugs(@page)
     else
       render :edit
     end
@@ -42,12 +43,23 @@ class PagesController < ApplicationController
 
   private
 
+  # если у страницы есть вложенные страницы, то обновляем slug'и всех потомков
+  def update_descendants_slugs(page)
+    if page.has_children?
+      page.children.each do |child|
+        child.slug = [child.parent.slug, child.slug.split('/').last].join('/')
+        child.save!
+        update_descendants_slugs(child)
+      end
+    end
+  end
+
   def set_question
-    @page = Page.find(params[:id])
+    @page = Page.friendly.find(params[:slug])
   end
 
   def page_params
-    params.require(:page).permit(:name, :title, :body, :patent_id)
+    params.require(:page).permit(:name, :title, :body, :parent_id)
   end
 
 end

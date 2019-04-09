@@ -1,0 +1,10 @@
+= form_with model: @page, local: true do |f|
+  = render 'shared/errors', resource: @page
+  = f.hidden_field :parent_id
+  = f.label :name
+  = f.text_field :name
+  = f.label :title
+  = f.text_field :title
+  = f.label :body
+  = f.text_area :body
+  = f.submit
