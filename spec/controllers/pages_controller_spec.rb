@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe PagesController, type: :controller do
-  let(:page) { create :page }
+  let(:page1) { create :page }
+  let(:page) { create :page, parent: page1 }
 
   describe 'GET#index' do
     let(:pages) { create_list(:page, 3) }

@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   end
 
   def new
-    @page = Page.new
+    @page = Page.new(parent_id: params[:parent_id])
   end
 
   def create
@@ -47,7 +47,7 @@ class PagesController < ApplicationController
   end
 
   def page_params
-    params.require(:page).permit(:name, :title, :body)
+    params.require(:page).permit(:name, :title, :body, :patent_id)
   end
 
 end
