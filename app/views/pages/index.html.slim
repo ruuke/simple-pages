@@ -1,18 +1,7 @@
 h1 Pages list
-table
-  tr
-    th Title
 
+- @pages.roots.each do |page|
+  = show_tree(page)
 
-  - @pages.roots.each do |page|
-    = show_tree(page)
-    tr
-      td= page.title
-
-      td= link_to 'Show', subpage_path(page)
-      td= link_to 'Update', edit_subpage_path(page)
-      td= link_to 'Delete', page_path(page),
-        method: :delete,
-        data: { confirm: 'Are you sure?' }
-
-p= link_to 'New page', new_page_path
+p
+  = link_to 'New page', new_page_path
