@@ -1,8 +1,11 @@
+= show_tree(@page) if @page.has_parent?
+
 h2
  = @page.title
 p
- = @page.body
+ = markdown(@page)
 
- =link_to 'Add nested page', new_nested_page_path(parent_id: @page.id)
-
-= link_to 'All pages', pages_path
+br
+  =link_to 'Add subpage', new_subpage_path(parent_id: @page.id)
+br
+  = link_to 'All pages', pages_path
