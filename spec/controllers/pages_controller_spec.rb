@@ -96,7 +96,7 @@ RSpec.describe PagesController, type: :controller do
 
       it 'redirects to updated page' do
         patch :update, params: { slug: page, page: attributes_for(:page) }
-        expect(response).to redirect_to page_path(slug: page.slug, id: page.slug)
+        expect(response).to redirect_to page
       end
     end
 

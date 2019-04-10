@@ -37,12 +37,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'slim-rails'
-# Tree Structure with Ancestry
+# Tree structure with Ancestry
 gem 'ancestry'
-
-# Markdown with Redcarpet
-gem 'redcarpet'
-
+# Pretty URLs with FriendlyID (babosa for rus-lang)
 gem 'friendly_id', '~> 5.2.4'
 gem 'babosa'
 
@@ -73,6 +70,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

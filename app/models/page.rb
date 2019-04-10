@@ -6,11 +6,11 @@ class Page < ApplicationRecord
   # добавление родительского поля ancestry в таблицу Page для вложенных страниц
   has_ancestry
 
-  validates :slug, :name, uniqueness: true,
-                          presence: true,
-                          format: { with: /[\wА-Яа-я]/ }
+  validates :name,  uniqueness: true,
+                    presence: true,
+                    format: { with: /[\wА-Яа-я]/ }
 
-  after_update :update_descendants_slugs
+  after_save :update_descendants_slugs
 
   # метод gem'a Friendli_id,
   # создание транслита, если имя введено на русском, и добавление родительского slug'a
