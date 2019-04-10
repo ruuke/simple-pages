@@ -5,9 +5,7 @@ class PagesController < ApplicationController
     @pages = Page.all
   end
 
-  def show
-
-  end
+  def show; end
 
   def new
     @page = Page.new(parent_id: params[:parent_id])
@@ -23,14 +21,11 @@ class PagesController < ApplicationController
     end
   end
 
-  def edit
-
-  end
+  def edit; end
 
   def update
     if @page.update(page_params)
-      redirect_to page_path(@page)
-      update_descendants_slugs(@page)
+      redirect_to @page
     else
       render :edit
     end
@@ -43,17 +38,6 @@ class PagesController < ApplicationController
 
   private
 
-  # если у страницы есть вложенные страницы, то обновляем slug'и всех потомков
-  def update_descendants_slugs(page)
-    if page.has_children?
-      page.children.each do |child|
-        child.slug = [child.parent.slug, child.slug.split('/').last].join('/')
-        child.save!
-        update_descendants_slugs(child)
-      end
-    end
-  end
-
   def set_question
     @page = Page.friendly.find(params[:slug])
   end
@@ -61,5 +45,4 @@ class PagesController < ApplicationController
   def page_params
     params.require(:page).permit(:name, :title, :body, :parent_id)
   end
-
 end

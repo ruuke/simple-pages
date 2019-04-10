@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PagesController, type: :controller do
   let(:page1) { create :page }
-  let(:page) { create :page, parent: page1 }
+  let(:page) { create :page, parent_id: page1.id }
 
   describe 'GET#index' do
     let(:pages) { create_list(:page, 3) }
@@ -18,7 +18,7 @@ RSpec.describe PagesController, type: :controller do
   end
 
   describe 'GET#show' do
-    before { get :show, params: { id: page} }
+    before { get :show, params: { slug: page} }
 
     it 'assigns the requested page to @page' do
       expect(assigns(:page)).to eq page
@@ -42,7 +42,7 @@ RSpec.describe PagesController, type: :controller do
   end
 
   describe 'GET#edit' do
-    before { get :edit, params: { id: page} }
+    before { get :edit, params: { slug: page} }
 
     it 'assigns the requested page to @page' do
       expect(assigns(:page)).to eq page
@@ -82,12 +82,12 @@ RSpec.describe PagesController, type: :controller do
   describe 'PATCH#update' do
     context 'with valid attributes' do
       it 'assigns the requested page to @page' do
-        patch :update, params: { id: page, page: attributes_for(:page) }
+        patch :update, params: { slug: page, page: attributes_for(:page) }
         expect(assigns(:page)).to eq page
       end
 
       it 'changes page attributes' do
-        patch :update, params: { id: page, page: { title: 'new title', body: 'new body'} }
+        patch :update, params: { slug: page, page: { title: 'new title', body: 'new body'} }
         page.reload
 
         expect(page.title).to eq 'new title'
@@ -95,13 +95,13 @@ RSpec.describe PagesController, type: :controller do
       end
 
       it 'redirects to updated page' do
-        patch :update, params: { id: page, page: attributes_for(:page) }
-        expect(response).to redirect_to page
+        patch :update, params: { slug: page, page: attributes_for(:page) }
+        expect(response).to redirect_to page_path(slug: page.slug, id: page.slug)
       end
     end
 
     context 'with invalid attributes' do
-      before { patch :update, params: { id: page, page: attributes_for(:page, :invalid) } }
+      before { patch :update, params: { slug: page, page: attributes_for(:page, :invalid) } }
 
       it 'does not change page' do
         page.reload
@@ -120,11 +120,11 @@ RSpec.describe PagesController, type: :controller do
     let!(:page) { create :page }
 
     it 'deletes the page' do
-       expect{ delete :destroy, params: { id: page } }.to change(Page, :count).by(-1)
+       expect{ delete :destroy, params: { slug: page } }.to change(Page, :count).by(-1)
     end
 
     it 'redirects to index' do
-      delete :destroy, params: { id: page }
+      delete :destroy, params: { slug: page }
       expect(response).to redirect_to pages_path
     end
   end
