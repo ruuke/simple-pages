@@ -6,6 +6,8 @@ class Page < ApplicationRecord
   # добавление родительского поля ancestry в таблицу Page для вложенных страниц
   has_ancestry
 
+  validates :title, :body, presence: true
+
   validates :name,  uniqueness: true,
                     presence: true,
                     format: { with: /[\wА-Яа-я]/ }

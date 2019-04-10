@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     @page = Page.new(page_params)
 
     if @page.save
-      redirect_to page_path(@page)
+      redirect_to subpage_path(@page)
     else
       render :new
     end
@@ -25,7 +25,7 @@ class PagesController < ApplicationController
 
   def update
     if @page.update(page_params)
-      redirect_to page_path(@page)
+      redirect_to subpage_path(@page)
     else
       render :edit
     end

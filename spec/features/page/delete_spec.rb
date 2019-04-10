@@ -6,7 +6,7 @@ feature 'User can delete page', %q{
   I'd like to be able to delete page
 } do
   given(:page1) { create :page }
-  given(:page2) { create :page, parent_id: page1.id }
+  given(:page2) { create :page, name: '123', parent_id: page1.id }
 
   scenario 'User deletes the page' do
     visit page_path(page2)

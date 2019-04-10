@@ -7,7 +7,7 @@ RSpec.describe PagesController, type: :controller do
     before { get :index }
 
     it 'populates an array of all pages' do
-      page1 = create(:page,name: 'page1')
+      page1 = create(:page, name: 'page1')
       page2 = create(:page, name: 'page2')
       expect(assigns(:pages)).to match_array([page1, page2])
     end
