@@ -25,7 +25,7 @@ class PagesController < ApplicationController
 
   def update
     if @page.update(page_params)
-      redirect_to @page
+      redirect_to page_path(@page)
     else
       render :edit
     end

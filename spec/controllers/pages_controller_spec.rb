@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe PagesController, type: :controller do
-  let(:page1) { create :page }
-  let(:page) { create :page, parent_id: page1.id }
+  let(:page) { create :page }
 
   describe 'GET#index' do
-    let(:pages) { create_list(:page, 3) }
     before { get :index }
 
     it 'populates an array of all pages' do
-      expect(assigns(:pages)).to match_array(pages)
+      page1 = create(:page,name: 'page1')
+      page2 = create(:page, name: 'page2')
+      expect(assigns(:pages)).to match_array([page1, page2])
     end
 
     it 'renders index view' do
