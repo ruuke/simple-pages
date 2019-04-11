@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get '/add', to: 'pages#new'
 
-  # маршруты для вложенных страниц
+  # routes for nested pages
   get '/*slug/add', to: 'pages#new', as: :new_subpage
   get '/*slug/edit', to: 'pages#edit', as: :edit_subpage
   get '/*slug', to: 'pages#show', as: :subpage
@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   put '/*slug', to: 'pages#update'
   delete '/*slug', to: 'pages#destroy'
 
-  # маршруты для корневых страниц
+  # routes for root pages
   resources :pages, path: "", path_names: { new: 'add' }, except: [:update]
 end

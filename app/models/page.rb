@@ -1,9 +1,9 @@
 class Page < ApplicationRecord
-  # подключение библиотеки для использования имен вместо id+добавление поля slug
+  # connecting the library to use names instead of id + adding a slug field
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  # добавление родительского поля ancestry в таблицу Page для вложенных страниц
+  # add parent ancestry field to Page for nested pages
   has_ancestry
 
   validates :title, :body, presence: true
@@ -14,22 +14,21 @@ class Page < ApplicationRecord
 
   after_save :update_descendants_slugs
 
-  # метод gem'a Friendli_id,
-  # создание транслита, если имя введено на русском, и добавление родительского slug'a
+  # gem Friendli_id method,
+  # create transliteration, if the name is entered in Russian, and add parent slug
   def normalize_friendly_id(name)
     name_as_slug = name.to_s.to_slug.normalize(transliterations: :russian).to_s
     add_parent_slug(name_as_slug)
   end
 
-
-  # метод gem'a Friendli_id, обновляет slug
+  # gem Friendli_id method, updates slug
   def should_generate_new_friendly_id?
     name_changed?
   end
 
   private
 
-  # если у страницы есть вложенные страницы, то обновляем slug'и всех потомков
+  # if the page has nested pages, then update slugs of all descendants
   def update_descendants_slugs
     if has_children?
       descendants.each do |child|
@@ -38,7 +37,6 @@ class Page < ApplicationRecord
       end
     end
   end
-
 
   def add_parent_slug(name_as_slug)
     if has_parent?
