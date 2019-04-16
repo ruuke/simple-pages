@@ -1,0 +1,18 @@
+= form_with model: @page, local: true do |f|
+  = render 'shared/errors', resource: @page
+  = f.hidden_field :parent_id
+
+  p
+    = f.label :name
+  = f.text_field :name
+
+  p
+    = f.label :title
+  = f.text_field :title
+
+  p
+    = f.label :body
+  = f.text_area :body, size: '70x10'
+
+  p
+    = f.submit

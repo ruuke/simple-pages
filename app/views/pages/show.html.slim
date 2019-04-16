@@ -1,0 +1,21 @@
+= show_tree(@page) if @page.has_children?
+
+p
+  = @page.title
+
+p
+  = markdown(@page)
+
+br
+=link_to 'Add subpage', new_subpage_path(parent_id: @page.id)
+
+br
+= link_to 'Update', edit_subpage_path(@page)
+
+br
+  = link_to 'Delete', page_path(@page),
+  method: :delete,
+  data: { confirm: 'Are you sure?' }
+
+br
+= link_to 'All pages', pages_path

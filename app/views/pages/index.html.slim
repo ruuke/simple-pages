@@ -1,0 +1,7 @@
+h1 Pages list
+
+- @pages.roots.each do |page|
+  = show_tree(page)
+
+p
+  = link_to 'New page', new_page_path
